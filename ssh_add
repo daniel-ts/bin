@@ -1,0 +1,19 @@
+#!/bin/sh
+# file: ssh_add
+
+ssh_keys_list() {
+    ls --color=never $HOME/.ssh | grep -iv -e '.pub$' -e 'known.*hosts' -e 'config'
+    return 0
+}
+
+ssh_keys_select() {
+    local KEY=$(ssh_keys_list | dmenu)
+    if ssh-add < /dev/null "$HOME/.ssh/$KEY"; then
+	notify-send "SSH: Added identity '$KEY'"
+    else
+	[ -n "$KEY" ] && notify-send "SSH: could not add identitiy '$KEY'"
+    fi
+}
+
+# run
+ssh_keys_select
