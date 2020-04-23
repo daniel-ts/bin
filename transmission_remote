@@ -1,1 +1,16 @@
 #!/bin/sh
+
+ADDR="192.168.178.73:9091"
+AUTH="transmission:passwort"
+
+if [ -z "$1" ]; then
+    notify-send "no input"
+    exit 1
+fi
+
+if transmission-remote "${ADDR}" --auth "${AUTH}" --add "$1"
+then
+    notify-send "successfully added torrent"
+else
+    notify-send "failure: could not add torrent!"
+fi
