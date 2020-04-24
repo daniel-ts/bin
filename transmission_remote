@@ -2,13 +2,15 @@
 
 ADDR="192.168.178.73:9091"
 AUTH="transmission:passwort"
+DIR="/mnt/wgshare/storage"
 
 if [ -z "$1" ]; then
     notify-send "no input"
     exit 1
 fi
 
-if transmission-remote "${ADDR}" --auth "${AUTH}" --add "$1"
+if transmission-remote "${ADDR}" --auth "${AUTH}" \
+		       --add "$1" -w $(yad --file "${DIR}")
 then
     notify-send "successfully added torrent"
 else
