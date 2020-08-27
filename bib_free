@@ -1,0 +1,4 @@
+#!/bin/sh
+
+curl -s -G 'https://ub.tu-braunschweig.de/scripts/typo3/lernplatzampel/ampelscript.php' \
+     | jq '.freiePlaetze'
